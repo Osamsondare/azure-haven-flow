@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Calendar } from '@/components/ui/calendar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,6 +13,7 @@ import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
 const BookingPage = () => {
+  const navigate = useNavigate();
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
   const [guests, setGuests] = useState(1);
@@ -31,8 +32,24 @@ const BookingPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle booking submission
-    console.log('Booking submitted:', { checkIn, checkOut, guests, selectedRoom });
+    
+    // Get form data
+    const formData = new FormData(e.target as HTMLFormElement);
+    const bookingData = {
+      checkIn: checkIn ? checkIn.toLocaleDateString() : '',
+      checkOut: checkOut ? checkOut.toLocaleDateString() : '',
+      guests,
+      selectedRoom,
+      firstName: formData.get('firstName') as string,
+      lastName: formData.get('lastName') as string,
+      email: formData.get('email') as string,
+      phone: formData.get('phone') as string,
+      address: formData.get('address') as string,
+      requests: formData.get('requests') as string,
+    };
+
+    // Navigate to payment page with booking data
+    navigate('/payment', { state: { bookingData } });
   };
 
   return (
@@ -134,6 +151,7 @@ const BookingPage = () => {
                     value={selectedRoom}
                     onChange={(e) => setSelectedRoom(e.target.value)}
                     className="w-full h-10 px-3 py-2 border border-input bg-background rounded-md text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    required
                   >
                     <option value="">Select a room type</option>
                     {rooms.map((room) => (
@@ -149,22 +167,22 @@ const BookingPage = () => {
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="firstName">First Name</Label>
-                  <Input id="firstName" placeholder="Enter your first name" />
+                  <Input id="firstName" name="firstName" placeholder="Enter your first name" required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="lastName">Last Name</Label>
-                  <Input id="lastName" placeholder="Enter your last name" />
+                  <Input id="lastName" name="lastName" placeholder="Enter your last name" required />
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="Enter your email" />
+                  <Input id="email" name="email" type="email" placeholder="Enter your email" required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone Number</Label>
-                  <Input id="phone" type="tel" placeholder="Enter your phone number" />
+                  <Input id="phone" name="phone" type="tel" placeholder="Enter your phone number" required />
                 </div>
               </div>
 
@@ -172,7 +190,7 @@ const BookingPage = () => {
                 <Label htmlFor="address">Address</Label>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                  <Input id="address" placeholder="Enter your address" className="pl-10" />
+                  <Input id="address" name="address" placeholder="Enter your address" className="pl-10" required />
                 </div>
               </div>
 
@@ -180,6 +198,7 @@ const BookingPage = () => {
                 <Label htmlFor="requests">Special Requests</Label>
                 <Textarea
                   id="requests"
+                  name="requests"
                   placeholder="Any special requests or requirements?"
                   className="min-h-[100px]"
                 />
@@ -187,7 +206,7 @@ const BookingPage = () => {
 
               <div className="flex gap-4 pt-6">
                 <Button type="submit" className="flex-1 bg-blue-600 hover:bg-blue-700">
-                  Book Now
+                  Proceed to Payment
                 </Button>
                 <Button type="button" variant="outline" className="flex-1">
                   Save for Later
