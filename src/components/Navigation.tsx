@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import Logo from './Logo';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,11 +23,7 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
           <div className="flex-shrink-0 transition-transform duration-300 hover:scale-105">
-            <h1 className={`text-2xl font-bold transition-colors duration-300 ${
-              isScrolled ? 'text-blue-900' : 'text-white'
-            }`}>
-              Azure Haven
-            </h1>
+            <Logo variant={isScrolled ? 'dark' : 'light'} size="md" />
           </div>
 
           {/* Desktop Navigation */}
