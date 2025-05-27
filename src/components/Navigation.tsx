@@ -28,7 +28,7 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            {['Home', 'Rooms', 'Dining', 'About', 'Gallery', 'Contact'].map((item, index) => (
+            {['Home', 'Rooms', 'Gallery', 'About', 'Contact'].map((item, index) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
@@ -74,7 +74,7 @@ const Navigation = () => {
           isMobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
         }`}>
           <div className="py-4 space-y-2 bg-white/95 backdrop-blur-md rounded-lg mt-2">
-            {['Home', 'Rooms', 'Dining', 'About', 'Gallery', 'Contact'].map((item, index) => (
+            {['Home', 'Rooms', 'Gallery', 'About', 'Contact'].map((item, index) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
