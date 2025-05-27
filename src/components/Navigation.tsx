@@ -1,10 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from './Logo';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +17,19 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    if (location.pathname !== '/') {
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
+    
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
       isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
@@ -23,27 +38,68 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
           <div className="flex-shrink-0 transition-transform duration-300 hover:scale-105">
-            <Logo variant={isScrolled ? 'dark' : 'light'} size="md" />
+            <Link to="/">
+              <Logo variant={isScrolled ? 'dark' : 'light'} size="md" />
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            {['Home', 'Rooms', 'Gallery', 'About', 'Contact'].map((item, index) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 group ${
-                  isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'
-                }`}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {item}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
-              </a>
-            ))}
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg transform">
-              Book Now
+            <Link
+              to="/"
+              className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 group ${
+                isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'
+              }`}
+            >
+              Home
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+            
+            <button
+              onClick={() => scrollToSection('rooms')}
+              className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 group ${
+                isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'
+              }`}
+            >
+              Rooms
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
             </button>
+            
+            <button
+              onClick={() => scrollToSection('gallery')}
+              className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 group ${
+                isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'
+              }`}
+            >
+              Gallery
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+            </button>
+            
+            <button
+              onClick={() => scrollToSection('about')}
+              className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 group ${
+                isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'
+              }`}
+            >
+              About
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+            </button>
+            
+            <button
+              onClick={() => scrollToSection('contact')}
+              className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 group ${
+                isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-200'
+              }`}
+            >
+              Contact
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+            </button>
+            
+            <Link to="/booking">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg transform">
+                Book Now
+              </button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -74,21 +130,43 @@ const Navigation = () => {
           isMobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
         }`}>
           <div className="py-4 space-y-2 bg-white/95 backdrop-blur-md rounded-lg mt-2">
-            {['Home', 'Rooms', 'Gallery', 'About', 'Contact'].map((item, index) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 transform hover:translate-x-2"
-                style={{ animationDelay: `${index * 50}ms` }}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item}
-              </a>
-            ))}
+            <Link
+              to="/"
+              className="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 transform hover:translate-x-2"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <button
+              onClick={() => scrollToSection('rooms')}
+              className="block w-full text-left px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 transform hover:translate-x-2"
+            >
+              Rooms
+            </button>
+            <button
+              onClick={() => scrollToSection('gallery')}
+              className="block w-full text-left px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 transform hover:translate-x-2"
+            >
+              Gallery
+            </button>
+            <button
+              onClick={() => scrollToSection('about')}
+              className="block w-full text-left px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 transform hover:translate-x-2"
+            >
+              About
+            </button>
+            <button
+              onClick={() => scrollToSection('contact')}
+              className="block w-full text-left px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 transform hover:translate-x-2"
+            >
+              Contact
+            </button>
             <div className="px-4 py-2">
-              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-full transition-all duration-300 hover:scale-105">
-                Book Now
-              </button>
+              <Link to="/booking">
+                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-full transition-all duration-300 hover:scale-105">
+                  Book Now
+                </button>
+              </Link>
             </div>
           </div>
         </div>

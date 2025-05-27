@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const FeaturedRooms = () => {
   const [visibleCards, setVisibleCards] = useState(new Set());
@@ -9,7 +9,7 @@ const FeaturedRooms = () => {
       id: 1,
       name: "Ocean View Suite",
       description: "Luxurious suite with panoramic ocean views and private balcony",
-      price: "$299",
+      price: "₦119,600",
       image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       features: ["Ocean View", "Private Balcony", "King Bed", "Spa Bath"],
       category: "luxury"
@@ -18,7 +18,7 @@ const FeaturedRooms = () => {
       id: 2,
       name: "Garden Villa",
       description: "Private villa surrounded by tropical gardens with pool access",
-      price: "$449",
+      price: "₦179,600",
       image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       features: ["Garden View", "Private Pool", "Outdoor Shower", "Terrace"],
       category: "luxury"
@@ -27,7 +27,7 @@ const FeaturedRooms = () => {
       id: 3,
       name: "Presidential Suite",
       description: "Ultimate luxury with premium amenities and personalized service",
-      price: "$799",
+      price: "₦319,600",
       image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       features: ["Panoramic View", "Butler Service", "Private Dining", "Jacuzzi"],
       category: "luxury"
@@ -36,7 +36,7 @@ const FeaturedRooms = () => {
       id: 4,
       name: "Standard Twin Room",
       description: "Comfortable twin beds with modern amenities and city views",
-      price: "$129",
+      price: "₦51,600",
       image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       features: ["Twin Beds", "City View", "WiFi", "Mini Bar"],
       category: "standard"
@@ -45,7 +45,7 @@ const FeaturedRooms = () => {
       id: 5,
       name: "Standard Double Room",
       description: "Cozy double room perfect for couples with elegant furnishings",
-      price: "$159",
+      price: "₦63,600",
       image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       features: ["Double Bed", "Balcony", "WiFi", "Room Service"],
       category: "standard"
@@ -54,7 +54,7 @@ const FeaturedRooms = () => {
       id: 6,
       name: "Deluxe Room",
       description: "Spacious room with upgraded amenities and partial ocean view",
-      price: "$189",
+      price: "₦75,600",
       image: "https://images.unsplash.com/photo-1483058712412-4245e9b90334?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       features: ["Queen Bed", "Partial Ocean View", "Sitting Area", "Upgraded Bath"],
       category: "normal"
@@ -63,7 +63,7 @@ const FeaturedRooms = () => {
       id: 7,
       name: "Family Room",
       description: "Perfect for families with connecting rooms and extra space",
-      price: "$219",
+      price: "₦87,600",
       image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       features: ["Connecting Rooms", "Family Size", "Kitchenette", "Play Area"],
       category: "normal"
@@ -72,7 +72,7 @@ const FeaturedRooms = () => {
       id: 8,
       name: "Business Room",
       description: "Ideal for business travelers with work desk and conference access",
-      price: "$199",
+      price: "₦79,600",
       image: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       features: ["Work Desk", "Conference Access", "Business Lounge", "High-Speed WiFi"],
       category: "normal"
@@ -175,9 +175,11 @@ const FeaturedRooms = () => {
                     {room.price}
                     <span className="text-sm text-gray-500">/night</span>
                   </span>
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full text-sm transition-all duration-300 hover:scale-105 hover:shadow-lg transform">
-                    Book
-                  </button>
+                  <Link to="/booking">
+                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full text-sm transition-all duration-300 hover:scale-105 hover:shadow-lg transform">
+                      Book
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -185,9 +187,11 @@ const FeaturedRooms = () => {
         </div>
 
         <div className="text-center mt-12">
-          <button className="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
-            View All Rooms
-          </button>
+          <Link to="/booking">
+            <button className="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 transform shadow-lg hover:shadow-xl">
+              View All Rooms
+            </button>
+          </Link>
         </div>
       </div>
     </section>
