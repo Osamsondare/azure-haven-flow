@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 const FeaturedRooms = () => {
@@ -36,7 +35,10 @@ const FeaturedRooms = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setVisibleCards(prev => new Set(prev).add(entry.target.dataset.cardId));
+            const cardId = (entry.target as HTMLElement).dataset.cardId;
+            if (cardId) {
+              setVisibleCards(prev => new Set(prev).add(cardId));
+            }
           }
         });
       },
